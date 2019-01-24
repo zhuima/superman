@@ -43,7 +43,8 @@
         <tr>
             <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
             <td><a href="#">{{ user.username }}</a></td>
-            <td><a href="#">{{ user.password_hash | safe | truncate(40, True)}}</a></td>
+            <td><a href="#">{{ user.password_hash | passwd_filter }}</a></td>
+            <!-- <td><a href="#">{{ user.password_hash | safe | truncate(40, True)}}</a></td> -->
             <td>
                 <a class="btn btn-info btn-sm" href="{{ url_for('auth.change_password', user_id=user.id) }}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
                 <button type="submit" class="btn btn-danger btn-sm" onclick="deleteUser('{{ user.id }}')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>

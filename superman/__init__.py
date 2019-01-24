@@ -22,6 +22,7 @@ from superman.settings import config
 from superman.extensions import bootstrap, moment, babel, whooshee, db, login_manager, csrf, migrate
 from superman.models import Admin, HostGroup, HostInfo
 from superman.settings import config
+from superman.filter import passwd_filter
 
 
 
@@ -33,6 +34,9 @@ def create_app(config_name=None):
 
     app = Flask('superman')
     app.config.from_object(config[config_name])
+
+    # customer jinja2 filter
+    app.jinja_env.filters['passwd_filter'] = passwd_filter
 
     register_logging(app)
     register_shell_context(app)
