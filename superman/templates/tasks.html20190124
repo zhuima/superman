@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Manage Tasks{% endblock %}
+
+
+{% block content %}
+
+<!-- <main class="app-content"> -->
+  <div class="app-title">
+    <div>
+      <h1><i class="fa fa-eye"></i> 进程信息</h1>
+      <p>进程信息展示</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item">进程列表</li>
+      <li class="breadcrumb-item active"><a href="#">进程信息详情</a></li>
+    </ul>
+  </div>
+
+    <div class="page-header">
+        <h1> {{ _('Hosts Num') }}树
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('dashboard.manage_hostinfo') }}"> {{ _('Host List') }}</a></span>
+        </h1>
+    </div>
+
+
+    <div class="row user">
+        <div class="col-md-3">
+            <div class="zTreeDemoBackground">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+
+
+        <div class="col-md-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-timeline">
+                  <div class="timeline-post">
+                          <table id="example" class="display" cellspacing="0" width="100%">
+   <!--                          <thead>
+                                <tr>
+                                    <th>Pid</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>State</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead> -->
+                            
+                        </table>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </main> -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.32/js/jquery.ztree.core.min.js"></script>
+
+<script type="text/javascript">
+
+
+var setting = {
+    async:{
+      enable: true
+    },
+    view: {
+        selectedMulti: false,
+        showIcon: false,
+        showLine: true,
+        showTitle: true,
+    },
+    check: {
+        enable: true,
+    },
+    data: {
+        key: {
+          name: "name",
+        },
+        simpleData: {
+            enable: true,//是否采用简单数据模式
+            idKey: "id",//树节点ID名称
+            pIdKey: "pid",//父节点ID名称
+            // rootPId: -1,//根节点ID
+        }
+    },
+    edit : {
+        enable : true,
+        removeTitle : "删除节点",
+        showRemoveBtn : $("#pdelete").val() == "delete" ? setRemoveBtn : false,
+        showRenameBtn : false
+    },
+    callback : {
+        // onRightClick : onRightClick,
+        // 单击事件
+        onClick : zTreeOnClick,
+
+    }
+}
+
+    // 单击事件，向后台发起请求
+    function zTreeOnClick(event, treeId, treeNode) {
+        if (!treeNode.id) {
+            return;
+        }
+        if (treeNode.id == "1") {
+            return;
+        }
+        if (treeNode.type == "organ") {
+            if (treeNode.id == "1") {
+                $("#po").hide();
+            } else {
+                $("#po").show();
+            }
+            $.ajax({
+                url: "/server/"  + treeNode.id + "/statusinfo/",
+                type : "get",
+                success : function(data) {
+                    var organ = data.data;
+                    console.log(organ[0].host);
+                    // $("#organId").val(organ.id);
+                    $("#zhuima").html(organ.id);
+                    $("#sex").hide();
+                    $("#name").val(organ.host);
+                }
+            });
+        } else {
+            // $.ajax({
+            //     url: "/server/"  + treeNode.id + "/statusinfo/",
+            //     type : "get",
+            //     success : function(data) {
+            //         console.log("/server/"  + treeNode.id + "/statusinfo/");
+
+            //         var staff = data.data;
+            //         for(var i=0;i<staff.length;i++){
+
+            //           console.log(staff[i].name);
+            //           var re=""
+
+            //           re+='<tr><td>' + staff[i].pid+'</td>';
+            //           re+='<td>' + staff[i].name +'</td>';
+            //           re+='<td>' + staff[i].pid +'</td>';
+            //           re+='<td>' + staff[i].description+'</td>';
+            //           re+='<td>' + staff[i].statename+'</td></tr>';
+            //           $('#zhuimas').html(re);
+
+            //         }
+            //     },
+            //     error: function (msg) {
+            //         alert(msg.responseText);
+            //     }
+            // });
+            $('#example').DataTable({
+              bAutoWidth: false,
+              // searching:false, //去掉搜索框
+              // bLengthChange:false,//去掉每页多少条框体
+              "language": {
+                  "info": "", // 表格左下角显示的文字
+                  "paginate": {
+                      "previous": "上一页",
+                      "next": "下一页"
+                  },
+                  "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                },
+                destroy:true,
+                "ajax": "/server/"  + treeNode.id + "/statusinfo/",
+                    "columns": [
+                    { "data": "pid", "title": "Parentid", "visible": false},
+                    { "data": "name", "title": "Name" },
+                    { "data": "description", "title": "Description" },
+                    { "data": "statename", 
+                      "title": "Statename",
+                       "sDefaultContent": "",
+                      "render": function (data,type,row,meta) {
+                        if (data == "RUNNING") {
+                            return "<span class='badge badge-success'>" + data + "</span>";
+                        } else if (data == "STOPPED") {
+                            return "<span class='badge badge-warning'>" + data + "</span>";
+
+                        } else {
+                            return "<span class='badge badge-danger'>" + data + "</span>";
+                        }
+                      }
+                    },
+                    { "data": "name", "title": "Action" },
+                    ],
+                    "columnDefs": [
+                  // 将Salary列变为红色
+                  {
+                      "targets": [0], // 目标列位置，下标从0开始
+                      "data": null, // 数据列名
+                      "render": function(data, type, full) { // 返回自定义内容
+                          return treeNode.id;
+                      }
+                  },
+                  {
+                      "targets": [4], // 目标列位置，下标从0开始
+                      "data": "name", // 数据列名
+                      "render": function(data, type, full) { // 返回自定义内容
+                          // return "<a href='/delete?name=" + data + "'>Delete</a>&nbsp;<a href='/update?name=" + data + "'>Update</a>";
+                          // return '<button class="btn btn-primary btn-xs" id="sstart"> start </button>'
+                          return '<button class="btn btn-primary btn-xs" onclick="startProcess(' + treeNode.id + "," + "'" + data + "'" + ')"> start </button>'
+                      }
+                  },
+                  ]
+            });
+
+        }
+      }
+
+      // $('#example').on("click", "#sstart", function () {
+      //   var pid = $(this).treeNode.id;
+      //   swal("who are you?" + pid);
+      // })
+
+
+// 启动
+
+function startProcess(hostinfo_id, pname) {
+      swal({
+      title: "确定要启动这个进程么？", 
+      text: "删除后可就无法恢复了。", 
+      type: "warning",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: "是的，我要删除！",
+      cancelButtonText: "容我三思",
+      confirmButtonColor: "#ec6c62"
+    }, 
+    function(isConfirm) {
+        if (!isConfirm) return;
+        $.ajax({
+            url: "/server/" + hostinfo_id +  "/" + pname + "/" + pname + "/start",
+            type: "GET"
+        })
+        .done(function(data) {
+            console.log(data);
+            swal("Update!", "进程启动成功!", "success");
+            // window.location.reload();
+            
+        })
+        .fail(function(data) {
+            swal("Oops", "服务器不可达", "error");
+        });
+    });
+
+}
+
+
+
+// 主
+$(document).ready(function () {
+
+  $(function () {
+    //加载后端构建的ZTree树（节点的数据格式已在后端格式化好了）
+    $.ajax({
+        url: '/tasksinfo',
+        type: 'get',
+        dataType: "json",
+        success: (data) => {
+            console.log(data);
+            $.fn.zTree.init($("#treeDemo"), setting, data.data);//初始化树节点时，添加同步获取的数据
+        },
+        error: (data) => {
+            alert(data.message);
+        }
+    });
+  });
+
+      // $('#start').click(function(){
+      //   swal("who are you?");
+      //   swal({
+      //         title: "Are you sure?", 
+      //         text: "Are you sure that you want to delete this photo?", 
+      //         type: "warning",
+      //         showCancelButton: true,
+      //         closeOnConfirm: false,
+      //         confirmButtonText: "Yes, delete it!",
+      //         confirmButtonColor: "#ec6c62"
+      //       }, function() {
+      //         $.ajax({
+      //           url: "/api/photos/" + photoId,
+      //           type: "DELETE"
+      //         })
+      //         .done(function(data) {
+      //           swal("Deleted!", "Your file was successfully deleted!", "success");
+      //         })
+      //         .error(function(data) {
+      //           swal("Oops", "We couldn't connect to the server!", "error");
+      //         });
+      //       });
+      //     });
+
+
+});
+
+
+</script>
+{% endblock scripts %}

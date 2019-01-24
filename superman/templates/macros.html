@@ -1,0 +1,110 @@
+{% macro hostgroup_card(hostgroups) %}
+    {% if hostgroups %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ _('No.') }}</th>
+            <th>{{ _('Name') }}</th>
+            <th>{{ _('Comments') }}</th>
+            <th>{{ _('Hostinfos') }}</th>
+            <th>{{ _('Date') }}</th>
+            <th>{{ _('Actions') }}</th>
+        </tr>
+        </thead>
+        {% for hostgroup in hostgroups %}
+        <tr>
+            <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
+            <td><a href="{{ url_for('.details_hostgroup', hostgroup_id=hostgroup.id) }}">{{ hostgroup.name }}</a></td>
+            <td><a href="#comments">{{ hostgroup.comment }}</a></td>
+            <td><a href="#comments">{{ hostgroup.hostinfos|length }}</a></td>
+            <td><a href="#comments">{{ moment(hostgroup.timestamp).format('LL') }}</a></td>
+            <td>
+                <a class="btn btn-info btn-sm" href="{{ url_for('.edit_hostgroup', hostgroup_id=hostgroup.id) }}">Edit</a>
+                <form class="inline" method="post" action="{{ url_for('.delete_hostgroup', hostgroup_id=hostgroup.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+    <div class="tip"><h5>{{ _('No hostgroups.') }}</h5></div>
+
+    {% endif %}
+{% endmacro %}
+
+{% macro user_card(users) %}
+    {% if users %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ _('No.') }}</th>
+            <th>{{ _('Username') }}</th>
+            <th>{{ _('Password') }}</th>
+            <th>{{ _('Actions') }}</th>
+        </tr>
+        </thead>
+        {% for user in users %}
+        <tr>
+            <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
+            <td><a href="#">{{ user.username }}</a></td>
+            <td><a href="#">{{ user.password_hash |safe | truncate(40, True)}}</a></td>
+            <td>
+                <a class="btn btn-info btn-sm" href="{{ url_for('.change_password', user_id=user.id) }}">Edit Password</a>
+                <form class="inline" method="post" action="{{ url_for('.delete_user', user_id=user.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+    <div class="tip"><h5>{{ _('No users.') }}</h5></div>
+
+    {% endif %}
+{% endmacro %}
+
+{% macro hostinfo_card(hostinfos) %}
+    {% if hostinfos %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ _('No.') }}</th>
+            <th>{{ _('Host') }}</th>
+            <th>{{ _("Username") }}</th>
+            <th>{{ _('Password') }}</th>
+            <th>{{ _('Comments') }}</th>
+            <th>{{ _('Hostgroup') }}</th>
+            <th>{{ _('Date') }}</th>
+            <th>{{ _('Actions') }}</th>
+        </tr>
+        </thead>
+        {% for hostinfo in hostinfos %}
+        <tr>
+            <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
+            <td><a href="#">{{ hostinfo.host }}</a></td>
+            <td><a href="#comments">{{ hostinfo.username }}</a></td>
+            <td><a href="#comments">{{ hostinfo.password }}</a></td>
+            <td><a href="#comments">{{ hostinfo.comment }}</a></td>
+            <td><a href="{{ url_for('.details_hostgroup', hostgroup_id=hostinfo.group_id) }}">{{ hostinfo.hostgroup.name }}</a></td>
+            <td><a href="#comments">{{ moment(hostinfo.timestamp).format('LL') }}</a></td>
+            <td>
+                <a class="btn btn-info btn-sm" href="{{ url_for('.edit_hostinfo', hostinfo_id=hostinfo.id) }}">Edit</a>
+                <form class="inline" method="post" action="{{ url_for('.delete_hostinfo', hostinfo_id=hostinfo.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+    <div class="tip"><h5>{{ _('No hostinfo.') }}</h5></div>
+
+    {% endif %}
+{% endmacro %}

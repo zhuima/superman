@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+
+{% block head %}
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css">
+    <title>{% block title %}Login - Superman{% endblock title %}</title>
+{% endblock head %}
+
+{% block nav %}
+{% endblock nav %}
+
+
+{% block content %}
+
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    <section class="login-content">
+      <div class="logo">
+        <h1>SuperMan</h1>
+      </div>
+      <div class="login-box">
+            <div class="login-form">
+                <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+            </div>
+            <div class="row h-100 justify-content-center align-items-center">
+                {{ render_form(form, extra_classes='col-8') }}
+            </div>
+      </div>
+    </section>
+{% endblock %}
+  
+{% block footer %}
+
+{% endblock footer %}
+
+{% block scripts %}
+    <!-- Essential javascripts for application to work-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/pace.min.js') }}"></script>
+    <script type="text/javascript">
+      // Login Page Flipbox control
+      $('.login-content [data-toggle="flip"]').click(function() {
+        $('.login-box').toggleClass('flipped');
+        return false;
+      });
+    </script>
+{% endblock %}

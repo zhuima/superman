@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{% from 'macros.html' import hostgroup_card, user_card, hostinfo_card with context %}
+
+{% block title %}Search: {{ q }}{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1><i class="fa fa-search" aria-hidden="true"></i> {{ _("Search") }}: {{ q }}</h1>
+        <h4> {{ _("Need three options are clicked") }}</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="nav nav-pills flex-column" role="tablist" aria-orientation="vertical">
+                <a class="nav-item nav-link {% if category == 'hostgroup' %}active{% endif %}"
+                   href="{{ url_for('.search', q=q, category='hostgroup') }}">{{ _("HostGroup") }}</a>
+                <a class="nav-item nav-link {% if category == 'user' %}active{% endif %}"
+                   href="{{ url_for('.search', q=q, category='user') }}">{{ _("Users") }}</a>
+                <a class="nav-item nav-link {% if category == 'hostinfo' %}active{% endif %}"
+                   href="{{ url_for('.search', q=q, category='hostinfo') }}">{{ _("Hosts Num") }}</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            {% if category == 'hostgroup' %}
+                {{ hostgroup_card(results) }}
+            {% elif category == 'user' %}
+                {{ user_card(results) }}
+            {% else %}
+                {{ hostinfo_card(results) }}
+            {% endif %}
+   
+        </div>
+    </div>
+<!--     {% if results %}
+        <div class="page-footer">
+            {{ render_pagination(pagination, align='right') }}
+        </div>
+    {% endif %} -->
+{% endblock %}

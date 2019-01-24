@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Manage Tasks{% endblock %}
+
+
+{% block content %}
+
+<!-- <main class="app-content"> -->
+  <div class="app-title">
+    <div>
+      <h1><i class="fa fa-eye"></i> 进程信息</h1>
+      <p>进程信息展示</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item">进程列表</li>
+      <li class="breadcrumb-item active"><a href="#">进程信息详情</a></li>
+    </ul>
+  </div>
+
+    <div class="page-header">
+        <h1> {{ _('Hosts Num') }}  
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('dashboard.new_hostinfo') }}"> {{ _('New HostInfo') }}</a></span>
+        </h1>
+    </div>
+
+
+    <div class="row user">
+        <div class="col-md-3">
+            <div class="zTreeDemoBackground">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+
+
+        <div class="col-md-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-timeline">
+                  <div class="timeline-post">
+                    <!-- dsfsdfsd -->
+                        <table class="table table-striped" id="zhuimas">
+                          <thead>
+                          <tr>
+                            <th>{{ _('No.') }}</th>
+                            <th id="thparent">{{ _('Parent') }}</th>
+                            <th id="organ">{{ _('Name') }}</th>
+                            <th>{{ _("Description") }}</th>
+                            <th>{{ _('State') }}</th>
+                            <th>{{ _('Actions') }}</th>
+                          </tr>
+                          </thead>
+<!--                           <tr id="zhuimas">
+                              <td id="pnum"></td>
+                              <td id="parent"><a href=""></a></td>
+                              <td id="pname"><a href="#comments"></a></td>
+                              <td id="pdesc"><a href="#comments"></a></td>
+                              <td id="pstate"><a href="#comments"></a></td>
+                              <td>
+                                  <a class="btn btn-info btn-sm" href="">Start</a>
+                                  <a class="btn btn-info btn-sm" href="">Stop</a>
+                                  <a class="btn btn-info btn-sm" href="">Restart</a>
+                                  <a class="btn btn-info btn-sm" href="">Tail -f</a>
+
+                              </td>
+                          </tr> -->
+                      </table>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </main> -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.32/js/jquery.ztree.core.min.js"></script>
+
+<script type="text/javascript">
+
+        // var zTreeObj;
+        // // zTree 的参数配置
+        // var setting = {};
+        // // zTree 的初始节点数据
+        // var zNodes = [
+        //     {
+        //         name: "test1", open: true, children: [
+        //             { name: "test1_1" }, { name: "test1_2" }]
+        //     },
+        //     {
+        //         name: "test2", open: true, children: [
+        //             { name: "test2_1" }, { name: "test2_2" }]
+        //     }
+        // ];
+        // $(document).ready(function () {
+        //     // 调用$.fn.zTree.init()方法构造树
+        //     zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        // });
+
+
+$(document).ready(function () {
+
+var setting = {
+    async:{
+      enable: true
+    },
+    view: {
+        selectedMulti: false,
+        showIcon: false,
+        showLine: true,
+        showTitle: true,
+    },
+    check: {
+        enable: true,
+    },
+    data: {
+        key: {
+          name: "name",
+        },
+        simpleData: {
+            enable: true,//是否采用简单数据模式
+            idKey: "id",//树节点ID名称
+            pIdKey: "pid",//父节点ID名称
+            // rootPId: -1,//根节点ID
+        }
+    },
+    edit : {
+        enable : true,
+        removeTitle : "删除节点",
+        showRemoveBtn : $("#pdelete").val() == "delete" ? setRemoveBtn : false,
+        showRenameBtn : false
+    },
+    callback : {
+        // onRightClick : onRightClick,
+        beforeClick: beforeClick,
+        // 单击事件
+        onClick : zTreeOnClick,
+
+        // onNodeCreated : zTreeOnNodeCreated,
+
+        // beforeRemove : zTreeBeforeRemove,
+
+        // onRemove : zTreeOnRemove
+    }
+};
+
+// var setting = {};
+
+
+
+  $(function () {
+    //加载后端构建的ZTree树（节点的数据格式已在后端格式化好了）
+    $.ajax({
+        url: '/tasksinfo',
+        type: 'get',
+        dataType: "json",
+        success: (data) => {
+            console.log(data);
+            $.fn.zTree.init($("#treeDemo"), setting, data.data);//初始化树节点时，添加同步获取的数据
+            // $.fn.zTree.init($("#treeDemo"), setting, datas);//初始化树节点时，添加同步获取的数据
+        },
+        error: (data) => {
+            alert(data.message);
+        }
+    });
+  });
+
+
+
+    var log, className = "dark";
+    function beforeClick(treeId, treeNode, clickFlag) {
+      className = (className === "dark" ? "":"dark");
+      // showLog("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
+      return (treeNode.click != false);
+    }
+
+// 控制节点是否显示删除图标
+    function setRemoveBtn(treeId, treeNode) {
+        return treeNode.pId != null;
+    }
+
+    // 给生成的节点添加class属性
+    function zTreeOnNodeCreated(event, treeId, treeNode) {
+        var str = treeNode.tId + "_span";
+        $("#" + str).addClass(treeNode.type);
+    }
+
+
+    // 单击事件，向后台发起请求
+    function zTreeOnClick(event, treeId, treeNode) {
+        if (!treeNode.id) {
+            return;
+        }
+        if (treeNode.id == "1") {
+            return;
+        }
+        $("#moreinform").show();
+        $("#baseinform").hide();
+        $(".po_phone_num_r").css("display", "none");
+        $(" .po_email_r").css("display", "none");
+        if (treeNode.type == "organ") {
+            $("#organ").html("部门名称");
+            $("#Partman").show();
+            $("#thparent").hide();
+            $("#sorgan").html("上级部门");
+            $("#partaddress").html("部门地址");
+            $("#partman").html("部门负责人");
+            $("#parttel").html("手机");
+
+            if (treeNode.id == "1") {
+                $("#po").hide();
+            } else {
+                $("#po").show();
+            }
+            $.ajax({
+                url: "/server/"  + treeNode.id + "/statusinfo/",
+                type : "get",
+                success : function(data) {
+                    var organ = data.data;
+                    console.log(organ[0].host);
+                    // $("#organId").val(organ.id);
+                    $("#zhuima").html(organ.id);
+                    $("#sex").hide();
+                    $("#name").val(organ.host);
+                    // $("#diz").val(organ.address);
+                    // $("#tel").val(organ.phone);
+                    // $("#manage").val(organ.manager);
+                    // $("#parentOrgan").val(organ.parentId);
+                }
+            });
+        } else {
+            $("#po").show();
+            $("#organ").html("姓名");
+            $("#sex").show();
+            $("#Email").show();
+            $("#thparent").hide();
+            $("#sorgan").html("所属部门");
+            $("#partaddress").html("职位");
+            $("#parttel").html("手机");
+
+            $.ajax({
+                url: "/server/"  + treeNode.id + "/statusinfo/",
+
+                type : "get",
+                success : function(data) {
+                    var staff = data.data;
+                    // console.log(staff);
+                    console.log(staff[0].host);
+                    // $("#pnum").html(staff[0].pid);
+                    // $("#parent").html(treeNode.id).hide();
+                    // $("#pname").html(staff[0].name);
+                    // $("#pdesc").html(staff[0].description);
+                    // $("#pstate").html(staff[0].statename);
+
+                    for(var i=0;i<staff.length;i++){
+
+                      console.log(staff[i].name);
+                      var re=""
+
+                      re+='<tr><td>' + staff[i].pid+'</td>';
+                      re+='<td>' + staff[i].name +'</td>';
+                      re+='<td>' + staff[i].pid +'</td>';
+                      re+='<td>' + staff[i].description+'</td>';
+                      re+='<td>' + staff[i].statename+'</td></tr>';
+                      $('#zhuimas').html(re);
+
+                    }
+                },
+
+
+                error: function (msg) {
+                    
+                    alert(msg.responseText);
+                }
+                    // $("#organId").val(staff.id);
+                    // $("#name").val(staff.host);
+                    // $("#diz").val(staff.position);
+                    // $("#tel").val(staff.tel);
+                    // $("#profession").val(staff.sex)
+                    // $("#Email02").val(staff.email);
+                    // $("#parentOrgan").val(staff.organId);
+            });
+
+        }
+
+
+
+
+// var example_table = $('#example_table').DataTable({
+//   'ajax': {
+//     "type"   : "GET",
+//     "url"    : "/server/"  + treeNode.id + "/statusinfo/",
+//   },
+// });
+// //To Reload The Ajax
+// //See DataTables.net for more information about the reload method
+// example_table.ajax.reload();
+
+
+    }
+
+});
+
+
+</script>
+{% endblock scripts %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}500{% endblock %}
+
+{% block content %}
+
+      <div class="page-error tile">
+        <h1><i class="fa fa-exclamation-circle"></i> {{ _('Error 500: Internal server error') }}</h1>
+        <p>{{ _('Internal server error.') }}</p>
+        <p><a class="btn btn-primary" href="javascript:window.history.back();">{{ _('Go Back') }}</a></p>
+      </div>
+      
+{% endblock %}
+
+{% block footer %}
+
+{% endblock footer %}

@@ -1,0 +1,413 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-01-21 08:35+0800\n"
+"PO-Revision-Date: 2019-01-19 22:09+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: superman/extensions.py:27
+msgid "Please login to access this page."
+msgstr "查看该页面请先登录"
+
+#: superman/forms.py:22 superman/forms.py:37 superman/forms.py:54
+#: superman/forms.py:97 superman/forms.py:117
+#: superman/templates/details_hostgroup.html:35
+#: superman/templates/macros.html:44 superman/templates/macros.html:78
+#: superman/templates/manage_hostinfo.html:34 superman/templates/users.html:37
+msgid "Username"
+msgstr "用户名"
+
+#: superman/forms.py:23 superman/forms.py:39 superman/forms.py:56
+#: superman/forms.py:98 superman/forms.py:118
+#: superman/templates/details_hostgroup.html:36
+#: superman/templates/macros.html:45 superman/templates/macros.html:79
+#: superman/templates/manage_hostinfo.html:35 superman/templates/users.html:38
+msgid "Password"
+msgstr "密码"
+
+#: superman/forms.py:24
+msgid "Remember me"
+msgstr "记住我"
+
+#: superman/forms.py:25
+msgid "Log in"
+msgstr "登录"
+
+#: superman/forms.py:44 superman/forms.py:58 superman/forms.py:66
+msgid "Confirm Password"
+msgstr "确认密码"
+
+#: superman/forms.py:45 superman/templates/new_user.html:25
+#: superman/templates/users.html:28
+msgid "New User"
+msgstr "新建帐号"
+
+#: superman/forms.py:59 superman/forms.py:67
+#: superman/templates/change_password.html:21
+msgid "Rest Password"
+msgstr "重置密码"
+
+#: superman/forms.py:63
+msgid "Old Password"
+msgstr "当前密码"
+
+#: superman/forms.py:64
+msgid "New Password"
+msgstr "新密码"
+
+#: superman/forms.py:71 superman/forms.py:82 superman/templates/macros.html:7
+#: superman/templates/manage_hostgroup.html:33
+msgid "Name"
+msgstr "名称"
+
+#: superman/forms.py:72 superman/forms.py:83 superman/forms.py:100
+#: superman/forms.py:120
+msgid "Comment"
+msgstr "描述"
+
+#: superman/forms.py:73
+msgid "Add HostGroup"
+msgstr "添加主机组"
+
+#: superman/forms.py:84
+msgid "Update HostGroup"
+msgstr "更新主机组"
+
+#: superman/forms.py:96 superman/forms.py:116 superman/templates/home.html:40
+#: superman/templates/manage_hostinfo.html:22 superman/templates/search.html:20
+#: superman/templates/tasks.html:23
+msgid "Hosts Num"
+msgstr "主机"
+
+#: superman/forms.py:99 superman/forms.py:119 superman/templates/home.html:32
+#: superman/templates/manage_hostgroup.html:22
+#: superman/templates/search.html:16
+msgid "HostGroup"
+msgstr "主机组"
+
+#: superman/forms.py:101
+msgid "Add Host"
+msgstr "添加主机"
+
+#: superman/forms.py:121
+msgid "Update Host"
+msgstr "更新主机"
+
+#: superman/blueprints/dashboard.py:33
+msgid "Login success."
+msgstr "登录成功"
+
+#: superman/blueprints/dashboard.py:37
+msgid "Your account is blocked."
+msgstr "你的账号被锁定"
+
+#: superman/blueprints/dashboard.py:39
+msgid "Invalid username or password."
+msgstr "无效的用户名或密码"
+
+#: superman/blueprints/dashboard.py:90
+msgid "Hostgroup created."
+msgstr "创建组成功"
+
+#: superman/blueprints/dashboard.py:104
+msgid "HostGroup updated."
+msgstr "更新组成功"
+
+#: superman/blueprints/dashboard.py:117
+msgid "HostGroup deleted."
+msgstr "删除组成功"
+
+#: superman/blueprints/dashboard.py:150
+msgid "HostInfo created."
+msgstr "主机创建成功"
+
+#: superman/blueprints/dashboard.py:174
+msgid "HostInfo updated."
+msgstr "主机更新成功"
+
+#: superman/blueprints/dashboard.py:191
+msgid "HostInfo deleted."
+msgstr "主机删除成功"
+
+#: superman/blueprints/dashboard.py:233
+msgid "You have successfully registered! You can try login."
+msgstr "你已成功注册，请重新登录"
+
+#: superman/blueprints/dashboard.py:249
+msgid "User delete."
+msgstr "用户删除成功"
+
+#: superman/blueprints/dashboard.py:262
+msgid "Password updated."
+msgstr "密码更新成功"
+
+#: superman/blueprints/dashboard.py:273
+msgid "Enter keyword about Group, Host or User."
+msgstr "输入组，主机或用户名"
+
+#: superman/blueprints/dashboard.py:298
+#, python-format
+msgid "Setting locale %(locale)s updated."
+msgstr "语言设置更新成功"
+
+#: superman/blueprints/dashboard.py:310
+msgid "Logout success."
+msgstr "登出成功"
+
+#: superman/templates/404.html:9
+msgid "Error 404: Page not found"
+msgstr "404错误: 页面没找到"
+
+#: superman/templates/404.html:10
+msgid "The page you have requested is not found."
+msgstr "你请求的页面不存在"
+
+#: superman/templates/404.html:11
+msgid "Go Back"
+msgstr "返回"
+
+#: superman/templates/base.html:106
+msgid "Settings"
+msgstr "设置"
+
+#: superman/templates/base.html:107
+msgid "Profile"
+msgstr "首选项"
+
+#: superman/templates/base.html:108
+msgid "Logout"
+msgstr "退出登录"
+
+#: superman/templates/base.html:127 superman/templates/home.html:11
+#: superman/templates/home.html:16
+msgid "Dashboard"
+msgstr "主页"
+
+#: superman/templates/base.html:133
+msgid "Hosts"
+msgstr "主机资源管理"
+
+#: superman/templates/base.html:139
+msgid "HostInfo Tables"
+msgstr "主机表单"
+
+#: superman/templates/base.html:144
+msgid "HostGroup Tables"
+msgstr "主机组表单"
+
+#: superman/templates/base.html:152
+msgid "Tasks"
+msgstr "进程管理"
+
+#: superman/templates/base.html:158
+msgid "User"
+msgstr "用户管理"
+
+#: superman/templates/change_password.html:10
+#: superman/templates/new_user.html:13 superman/templates/users.html:13
+msgid "User Info"
+msgstr "用户信息"
+
+#: superman/templates/change_password.html:11
+#: superman/templates/new_user.html:14 superman/templates/users.html:14
+msgid "User Info Display"
+msgstr "用户信息展示"
+
+#: superman/templates/change_password.html:15
+#: superman/templates/change_password.html:23
+#: superman/templates/new_user.html:18 superman/templates/new_user.html:27
+#: superman/templates/users.html:18
+msgid "User List"
+msgstr "用户列表"
+
+#: superman/templates/change_password.html:16
+#: superman/templates/new_user.html:19 superman/templates/users.html:19
+msgid "User Info Details"
+msgstr "用户信息详情"
+
+#: superman/templates/details_hostgroup.html:11
+#: superman/templates/edit_hostgroup.html:10
+#: superman/templates/manage_hostgroup.html:11
+#: superman/templates/new_hostgroup.html:13
+msgid "HostGroup Info"
+msgstr "主机组信息"
+
+#: superman/templates/details_hostgroup.html:12
+#: superman/templates/edit_hostgroup.html:11
+#: superman/templates/manage_hostgroup.html:12
+#: superman/templates/new_hostgroup.html:14
+msgid "HostGroup Info Display"
+msgstr "主机组信息展示"
+
+#: superman/templates/details_hostgroup.html:16
+#: superman/templates/details_hostgroup.html:25
+#: superman/templates/edit_hostgroup.html:15
+#: superman/templates/manage_hostgroup.html:16
+#: superman/templates/new_hostgroup.html:18
+msgid "HostGroup List"
+msgstr "主机组列表"
+
+#: superman/templates/details_hostgroup.html:17
+#: superman/templates/edit_hostgroup.html:16
+#: superman/templates/manage_hostgroup.html:17
+#: superman/templates/new_hostgroup.html:19
+msgid "HostGroup Info Details"
+msgstr "主机组信息详情"
+
+#: superman/templates/details_hostgroup.html:22
+msgid "Include Host List"
+msgstr "包含主机列表"
+
+#: superman/templates/details_hostgroup.html:33
+#: superman/templates/macros.html:6 superman/templates/macros.html:43
+#: superman/templates/macros.html:76
+#: superman/templates/manage_hostgroup.html:32
+#: superman/templates/manage_hostinfo.html:32 superman/templates/users.html:36
+msgid "No."
+msgstr "序号"
+
+#: superman/templates/details_hostgroup.html:34
+#: superman/templates/macros.html:77 superman/templates/manage_hostinfo.html:33
+msgid "Host"
+msgstr "主机IP"
+
+#: superman/templates/details_hostgroup.html:37
+#: superman/templates/macros.html:8 superman/templates/macros.html:80
+#: superman/templates/manage_hostgroup.html:34
+#: superman/templates/manage_hostinfo.html:36
+msgid "Comments"
+msgstr "描述"
+
+#: superman/templates/details_hostgroup.html:38
+#: superman/templates/macros.html:10 superman/templates/macros.html:82
+#: superman/templates/manage_hostgroup.html:36
+#: superman/templates/manage_hostinfo.html:38
+msgid "Date"
+msgstr "时间戳"
+
+#: superman/templates/details_hostgroup.html:39
+#: superman/templates/macros.html:11 superman/templates/macros.html:46
+#: superman/templates/macros.html:83
+#: superman/templates/manage_hostgroup.html:37
+#: superman/templates/manage_hostinfo.html:39 superman/templates/users.html:39
+msgid "Actions"
+msgstr "动作"
+
+#: superman/templates/details_hostgroup.html:65
+msgid "No HostGroups."
+msgstr "没有主机组"
+
+#: superman/templates/edit_hostinfo.html:10
+#: superman/templates/manage_hostinfo.html:11
+#: superman/templates/new_hostinfo.html:13
+msgid "Host Info"
+msgstr "主机信息"
+
+#: superman/templates/edit_hostinfo.html:11
+#: superman/templates/manage_hostinfo.html:12
+#: superman/templates/new_hostinfo.html:14
+msgid "Host Info Display"
+msgstr "主机信息展示"
+
+#: superman/templates/edit_hostinfo.html:15
+#: superman/templates/manage_hostinfo.html:16
+#: superman/templates/new_hostinfo.html:18
+msgid "Host List"
+msgstr "主机列表"
+
+#: superman/templates/edit_hostinfo.html:16
+#: superman/templates/manage_hostinfo.html:17
+#: superman/templates/new_hostinfo.html:19
+msgid "Host Info Details"
+msgstr "主机信息详情"
+
+#: superman/templates/home.html:12
+msgid "Statistical information display"
+msgstr "统计信息展示"
+
+#: superman/templates/home.html:23 superman/templates/search.html:18
+#: superman/templates/users.html:25
+msgid "Users"
+msgstr "用户"
+
+#: superman/templates/home.html:48
+msgid "Task"
+msgstr "进程"
+
+#: superman/templates/home.html:57
+msgid "Monthly Trend"
+msgstr "月度趋势"
+
+#: superman/templates/home.html:65
+msgid "Support Requests"
+msgstr "请求支持"
+
+#: superman/templates/macros.html:9 superman/templates/manage_hostgroup.html:35
+msgid "Hostinfos"
+msgstr "包含主机数"
+
+#: superman/templates/macros.html:33
+#: superman/templates/manage_hostgroup.html:59
+msgid "No hostgroups."
+msgstr "没有主机组"
+
+#: superman/templates/macros.html:66 superman/templates/users.html:59
+msgid "No users."
+msgstr "没有用户"
+
+#: superman/templates/macros.html:81 superman/templates/manage_hostinfo.html:37
+msgid "Hostgroup"
+msgstr "主机组"
+
+#: superman/templates/macros.html:107
+msgid "No hostinfo."
+msgstr "没有主机"
+
+#: superman/templates/manage_hostgroup.html:25
+msgid "New HostGroup"
+msgstr "新建主机组"
+
+#: superman/templates/manage_hostinfo.html:25 superman/templates/tasks.html:25
+msgid "New HostInfo"
+msgstr "新建主机"
+
+#: superman/templates/manage_hostinfo.html:63
+msgid "No hostinfos."
+msgstr "没有主机"
+
+#: superman/templates/search.html:9
+msgid "Search"
+msgstr "搜索"
+
+#: superman/templates/search.html:10
+msgid "Need three options are clicked"
+msgstr "需要三个选项都都点击下"
+
+#~ msgid "User Table"
+#~ msgstr "用户表单"
+
+#~ msgid "UserInfo Display"
+#~ msgstr "用户信息展示"
+
+#~ msgid "UserInfo Details"
+#~ msgstr "用户信息详情"
+
+#~ msgid "HostInfo"
+#~ msgstr ""
+
+#~ msgid "Setting locale {0} updated."
+#~ msgstr "设置时区 {0} 成功"
+

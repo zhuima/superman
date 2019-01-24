@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+      <div class="page-error tile">
+        <h1><i class="fa fa-exclamation-circle"></i> {{ _('Error 404: Page not found') }}</h1>
+        <p>{{ _('The page you have requested is not found.') }}</p>
+        <p><a class="btn btn-primary" href="javascript:window.history.back();">{{ _('Go Back') }}</a></p>
+      </div>
+      
+{% endblock %}
+
+{% block footer %}
+
+{% endblock footer %}

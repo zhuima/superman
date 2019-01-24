@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+      <div class="app-title">
+        <div>
+          <h1><i class="fa fa-th-list"></i> {{ _('User Info') }}</h1>
+          <p> {{ _('User Info Display') }}</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item"> {{ _('User List') }}</li>
+          <li class="breadcrumb-item active"><a href="#"> {{ _('User Info Details') }}</a></li>
+        </ul>
+      </div>
+
+
+      <div class="page-header">
+        <h1> {{ _('Users') }} | 
+            <small class="text-muted">{{ pagination.total }}</small>
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('auth.register') }}"> {{ _('New User') }}</a></span>
+        </h1>
+    </div>
+
+    {% if users %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ _("No.") }}</th>
+            <th>{{ _("Username") }}</th>
+            <th>{{ _("Password") }}</th>
+            <th>{{ _("Actions") }}</th>
+        </tr>
+        </thead>
+        {% for user in users %}
+        <tr>
+            <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
+            <td><a href="#">{{ user.username }}</a></td>
+            <td><a href="#">{{ user.password_hash | safe | truncate(40, True)}}</a></td>
+            <td>
+                <a class="btn btn-info btn-sm" href="{{ url_for('auth.change_password', user_id=user.id) }}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
+                <button type="submit" class="btn btn-danger btn-sm" onclick="deleteUser('{{ user.id }}')"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+    <div class="tip"><h5>{{ _("No users.") }}</h5></div>
+
+    {% endif %}
+
+
+
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}
+
+{% block scripts %}
+
+
+<script type="text/javascript">
+
+function deleteUser(userId) {
+    swal({
+      title: "确定要删除这个用户么？", 
+      text: "删除后可就无法恢复了。", 
+      type: "warning",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: "是的，我要删除！",
+      cancelButtonText: "容我三思",
+      confirmButtonColor: "#ec6c62"
+    }, 
+    function(isConfirm) {
+        if (!isConfirm) return;
+        $.ajax({
+            url: "/userlist/" + userId + "/delete",
+            type: "GET"
+        })
+        .done(function(data) {
+            swal("Deleted!", "账号删除成功!", "success");
+            window.location.reload();
+        })
+        .fail(function(data) {
+            swal("Oops", "服务器不可达", "error");
+        });
+    });
+};
+</script>
+{% endblock scripts %}

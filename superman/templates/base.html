@@ -1,0 +1,280 @@
+{% from 'bootstrap/nav.html' import render_nav_item %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Superman">
+    <meta property="og:title" content="superman -- supervisor分布式管理系统">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>{% block title %}superman -- supervisor分布式管理系统{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.38/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/datatables/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/datatables/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.0.1/dist/sweetalert2.min.css" type="text/css"> -->
+    <!-- Font-icon css-->
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    {% endblock head %}
+  </head>
+  <body class="app sidebar-mini rtl">
+
+
+    {% block nav %}
+
+    <!-- Navbar-->
+    <header class="app-header"><a class="app-header__logo" href="{{ url_for('dashboard.dashboard') }}">superman</a>
+      <!-- Sidebar toggle button-->
+      <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+      <!-- Navbar Right Menu-->
+      <ul class="app-nav">
+        <li class="app-search">
+                <div class="navbar-nav mr-auto">
+                    <form class="form-inline my-2 my-lg-0" action="{{ url_for('dashboard.search') }}">
+                        <input class="app-search__input" type="text" name="q" placeholder="Host, Group or User" required>
+                        <button class="app-search__button"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+        </li>
+        <!--Notification Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
+          <ul class="app-notification dropdown-menu dropdown-menu-right">
+            <li class="app-notification__title">You have 4 new notifications.</li>
+            <div class="app-notification__content">
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Lisa sent you a mail</p>
+                    <p class="app-notification__meta">2 min ago</p>
+                  </div></a></li>
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Mail server not working</p>
+                    <p class="app-notification__meta">5 min ago</p>
+                  </div></a></li>
+              <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                  <div>
+                    <p class="app-notification__message">Transaction complete</p>
+                    <p class="app-notification__meta">2 days ago</p>
+                  </div></a></li>
+              <div class="app-notification__content">
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Lisa sent you a mail</p>
+                      <p class="app-notification__meta">2 min ago</p>
+                    </div></a></li>
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Mail server not working</p>
+                      <p class="app-notification__meta">5 min ago</p>
+                    </div></a></li>
+                <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
+                    <div>
+                      <p class="app-notification__message">Transaction complete</p>
+                      <p class="app-notification__meta">2 days ago</p>
+                    </div></a></li>
+              </div>
+            </div>
+            <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
+          </ul>
+        </li>
+
+
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-globe fa-lg"></i></a>
+          <ul class="dropdown-menu settings-menu dropdown-menu-right">
+            <li><a class="dropdown-item" href="{{ url_for('auth.set_locale', locale='zh_Hans_CN') }}"><i class="fa fa-contao" aria-hidden="true"></i>简体中文</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.set_locale', locale='en_US') }}"><i class="fa fa-etsy" aria-hidden="true"></i>English</a></li>
+          </ul>
+        </li>
+
+
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+          <ul class="dropdown-menu settings-menu dropdown-menu-right">
+            <li><a class="dropdown-item" href="{{ url_for('auth.user') }}"><i class="fa fa-cog fa-lg"></i> {{ _('Settings') }}</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.userlist') }}"><i class="fa fa-user fa-lg"></i> {{ _('Profile') }}</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out fa-lg"></i> {{ _('Logout') }}</a></li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+
+
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ url_for('static', filename='images/48.jpg') }}" alt="User Image">
+        <div>
+          <p class="app-sidebar__user-name">{{ current_user.username }}</p>
+        </div>
+      </div>
+      <ul class="app-menu">
+        <li>
+          <a class="app-menu__item active" href="{{ url_for('dashboard.dashboard') }}">
+            <i class="app-menu__icon fa fa-dashboard"></i>
+              <span class="app-menu__label"> {{ _('Dashboard') }}</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon fa fa-th-list"></i>
+              <span class="app-menu__label"> {{ _('Hosts') }}</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a class="treeview-item" href="{{ url_for('dashboard.manage_hostinfo') }}">
+                <i class="icon fa fa-desktop fa-1x"></i> {{ _('HostInfo Tables') }} 
+              </a>
+            </li>
+            <li>
+              <a class="treeview-item" href="{{ url_for('dashboard.manage_hostgroup') }}">
+                 <i class="icon fa fa-server fa-1x"></i> {{ _('HostGroup Tables') }} 
+              </a> 
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="app-menu__item" href="{{ url_for('dashboard.tasks') }}">
+            <i class="app-menu__icon fa fa-eye"></i>
+              <span class="app-menu__label"> {{ _('Tasks') }}</span>
+          </a>
+        </li>
+        <li>
+          <a class="app-menu__item" href="{{ url_for('auth.userlist') }}">
+            <i class="app-menu__icon fa fa-user-circle-o"></i>
+              <span class="app-menu__label"> {{ _('User') }}</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    {% endblock nav %}
+
+
+<main>
+    <div class="app-content">
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="bs-component">
+            {% for message in get_flashed_messages(with_categories=True) %}
+                <div class="alert alert-title alert-dismissible alert-{{ message[0] }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <h5>{{ message[1] }}</h5>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      {% block content %}{% endblock content %}
+      {% block footer %}{% endblock footer %}
+  </div>
+
+</main>
+
+    
+    <!-- Essential javascripts for application to work-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+
+    <!-- <script src="https://cdn.bootcss.com/popper.js/1.13.0/esm/popper.min.js"></script> -->
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/render_time.js') }}"></script>
+
+    <!-- The javascript plugin to display page loading on top-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/pace.min.js') }}"></script>
+
+    <!-- Page specific javascripts-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/chart.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/sweetalert.min.js') }}"></script>
+
+    <script src="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/datatables/1.10.19/js/dataTables.bootstrap.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8.0.1/dist/sweetalert2.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+
+    <!-- <script src="https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js"></script> -->
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/sweetalert.min.js') }}"></script> -->
+
+
+
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+    
+  {% block scripts %}
+
+    <script type="text/javascript">
+      var data = {
+      	labels: ["January", "February", "March", "April", "May"],
+      	datasets: [
+      		{
+      			label: "My First dataset",
+      			fillColor: "rgba(220,220,220,0.2)",
+      			strokeColor: "rgba(220,220,220,1)",
+      			pointColor: "rgba(220,220,220,1)",
+      			pointStrokeColor: "#fff",
+      			pointHighlightFill: "#fff",
+      			pointHighlightStroke: "rgba(220,220,220,1)",
+      			data: [65, 59, 80, 81, 56]
+      		},
+      		{
+      			label: "My Second dataset",
+      			fillColor: "rgba(151,187,205,0.2)",
+      			strokeColor: "rgba(151,187,205,1)",
+      			pointColor: "rgba(151,187,205,1)",
+      			pointStrokeColor: "#fff",
+      			pointHighlightFill: "#fff",
+      			pointHighlightStroke: "rgba(151,187,205,1)",
+      			data: [28, 48, 40, 19, 86]
+      		}
+      	]
+      };
+      var pdata = [
+      	{
+      		value: 300,
+      		color: "#46BFBD",
+      		highlight: "#5AD3D1",
+      		label: "Complete"
+      	},
+      	{
+      		value: 50,
+      		color:"#F7464A",
+      		highlight: "#FF5A5E",
+      		label: "In-Progress"
+      	}
+      ]
+
+      var ctxl = $("#lineChartDemo").get(0).getContext("2d");
+      var lineChart = new Chart(ctxl).Line(data);
+
+      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
+      var pieChart = new Chart(ctxp).Pie(pdata);
+    </script>
+  {% endblock scripts %}
+  </body>
+</html>

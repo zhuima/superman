@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}Manage Posts{% endblock %}
+
+{% block content %}
+
+<!-- <main class="app-content"> -->
+  <div class="app-title">
+    <div>
+      <h1><i class="fa fa-eye"></i> 进程信息</h1>
+      <p>进程信息展示</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item">进程列表</li>
+      <li class="breadcrumb-item active"><a href="#">进程信息详情</a></li>
+    </ul>
+  </div>
+
+    <div class="page-header" >
+        <h1>   {{ host }} | 
+            <small class="text-muted"> 机器托管进程管理</small>
+            <span class="float-right"><a class="btn btn-primary btn-sm"
+                                         href="{{ url_for('dashboard.manage_hostinfo') }}"> {{ _('Host List') }}</a></span>
+        </h1>
+    </div>
+
+
+    {% if apps %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ _('No.') }}</th>
+            <th>{{ _('Parent') }}</th>
+            <th>{{ _('Name') }}</th>
+            <th>{{ _("Description") }}</th>
+            <th>{{ _('State') }}</th>
+            <th>{{ _('Actions') }}</th>
+        </tr>
+        </thead>
+        {% for app in apps %}
+        <tr>
+            <td>{{ loop.index + ((page - 1) * config.SUPERMAN_MANAGE_POST_PER_PAGE) }}</td>
+            <td>{{ hostinfo_id }}</td>
+            <td><a href="#">{{ app.name }}</a></td>
+            <td><a href="#comments">{{ app.description }}</a></td>
+            <td><a href="#comments">
+                {% if app.get('state') == 0 %}
+                <span class="badge badge-danger">
+                 {% elif app.get('state') == 10 %}
+                <span class="badge badge-secondary">
+                 {% else %}
+                <span class="badge badge-success">
+                {% endif %}
+                    {{ app.statename }}
+                </span>
+                </a>
+            </td>
+        <td>
+    
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{ hostinfo_id }}', '{{app.get('group')}}', '{{app.get('name')}}', 'start')">
+                start
+            </button>
+     
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{ hostinfo_id }}', '{{app.get('group')}}', '{{app.get('name')}}', 'restart')">
+                restart
+            </button>
+            <button class="btn btn-primary btn-xs"
+                    onclick="app_opt('{{ hostinfo_id }}', '{{app.get('group')}}', '{{app.get('name')}}', 'stop')">
+                stop
+            </button>
+            <button class="btn btn-primary btn-xs"
+                    onclick="tail_log('{{ hostinfo_id }}', '{{app.get('group')}}', '{{app.get('name')}}')">
+                tail
+            </button>
+        </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="page-footer">{{ render_pagination(pagination) }}</div>
+    {% else %}
+    <div class="tip"><h5>{{ _('No hostinfos.') }}</h5></div>
+
+    {% endif %}
+
+<!-- </main> -->
+{% endblock %}
+
+
+{% block scripts %}
+
+
+<script type="text/javascript">
+
+function parse_result(data) {
+    if (data.ret) {
+        alert('success!')
+    } else {
+        alert('failed!')
+    }
+}
+function batch_group_opt(group, opt) {
+    $.get("/group_batch/" + group + "/" + opt + "/", function (data, status) {
+        parse_result(data)
+    });
+}
+function batch_server_opt(server_id, opt) {
+    $.get("/server_batch/" + server_id + "/" + opt + "/", function (data, status) {
+        parse_result(data)
+    });
+}
+function app_opt(hostinfo_id, group, appname, opt) {
+    $.get("/server/" + hostinfo_id + "/" + group + "/" + appname + "/" + opt, function (data, status) {
+        parse_result(data)
+    });
+}
+function tail_log(server_id, group, app) {
+    window.open("/" + server_id + "/" + group + "/" + app + "/tail/")
+}
+function show_server_status(server_id) {
+    $.get("/server/" + server_id + "/status/", function (data, status) {
+        $('#server_div').html(data)
+    });
+}
+</script>
+{% endblock scripts %}
